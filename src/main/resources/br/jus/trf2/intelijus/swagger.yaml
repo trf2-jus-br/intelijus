@@ -1,0 +1,297 @@
+﻿swagger: '2.0'
+
+info:
+  version: "1.0.0"
+  title: Intelijus
+  description: Micro-serviço para obter indicadores de gestão
+
+# host: assijus.jfrj.jus.br
+basePath: /intelijus/api/v1
+schemes: [http,https]
+consumes: [application/json]
+produces: [application/json]
+
+tags:
+  - name: stats
+    description: Obter estatísticas
+
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  unidade:
+    name: unidade
+    in: path
+    description: Código da unidade, vara, gabinete, etc.
+    type: string
+    required: true
+  orgao:
+    name: orgao
+    in: path
+    description: Código do órgão, TRF2, SJRJ, etc.
+    type: string
+    required: true
+  nome:
+    name: nome
+    in: formData
+    description: Nome do usuário
+    type: string
+    required: false
+  email:
+    name: email
+    in: formData
+    description: Email do usuário
+    type: string
+    required: false
+  mensagem:
+    name: mensagem
+    in: formData
+    description: Sugestão
+    type: string
+    required: true
+
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /orgao/{orgao}/unidade/{unidade}/metas/nacionais:
+    get:
+      parameters:
+        - $ref: "#/parameters/orgao"
+        - $ref: "#/parameters/unidade"
+      description: Obter a lista de metas
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Indicador"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /orgao/{orgao}/unidade/{unidade}/metas/especificas:
+    get:
+      parameters:
+        - $ref: "#/parameters/orgao"
+        - $ref: "#/parameters/unidade"
+      description: Obter a lista de metas
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Indicador"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /orgao/{orgao}/unidade/{unidade}/pendencias:
+    get:
+      parameters:
+        - $ref: "#/parameters/orgao"
+        - $ref: "#/parameters/unidade"
+      description: Obter a lista de metas
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Indicador"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /orgao/{orgao}/unidade/{unidade}/producao:
+    get:
+      parameters:
+        - $ref: "#/parameters/orgao"
+        - $ref: "#/parameters/unidade"
+      description: Obter a lista de metas
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Indicador"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /orgao/{orgao}/unidade/{unidade}/acervo:
+    get:
+      parameters:
+        - $ref: "#/parameters/orgao"
+        - $ref: "#/parameters/unidade"
+      description: Obter a lista de metas
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Indicador"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /orgao/{orgao}/unidades:
+    get:
+      parameters:
+        - $ref: "#/parameters/orgao"
+      description: Obter a lista de unidades
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Unidade"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /orgaos:
+    get:
+      parameters: []
+      description: Obter a lista de órgãos
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/Orgao"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /relatorio/dinamico:
+    get:
+      parameters: []
+      description: Obter as linhas para o relatório dinâmico
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: "#/definitions/LinhaRelatorioDinamico"
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+  /sugestao:
+    post:
+      parameters:
+        - $ref: "#/parameters/nome"
+        - $ref: "#/parameters/email"
+        - $ref: "#/parameters/mensagem"
+      description: Enviar sugestões
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        500:
+          description: Error ocurred
+          schema:
+            $ref: "#/definitions/Error"
+
+################################################################################
+#                                     Definitions                              #
+################################################################################
+definitions:
+  Orgao:
+    type: object
+    properties:
+      nome:
+        type: string
+      descricao:
+        type: string
+      codigo:
+        type: string
+  Unidade:
+    type: object
+    properties:
+      nome:
+        type: string
+      descricao:
+        type: string
+      codigo:
+        type: string
+      localidade:
+        type: string
+  Indicador:
+    type: object
+    properties:
+      nome:
+        type: string
+      descricao:
+        type: string
+      valor:
+        type: number
+      memoriaDeCalculo:
+        type: string
+  LinhaRelatorioDinamico:
+    type: object
+    properties:
+      orgao:
+        type: string
+      instancia:
+        type: string
+      tipoUnidade:
+        type: string
+      unidade:
+        type: string
+      natureza:
+        type: string
+      tipoMovimentacao:
+        type: string
+      classe:
+        type: string
+      assuntoPrincipal:
+        type: string
+      coletivo:
+        type: string
+      ano:
+        type: number
+      quantidade:
+        type: number
+  Error:
+    type: object
+    properties:
+      error:
+        type: string

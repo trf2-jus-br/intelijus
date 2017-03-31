@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Intelijus</title>
+<base href="/intelijus/">
+
+<!-- favicon -->
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="assets/angular-busy/angular-busy.css">
+<link rel="stylesheet" href="assets/pivottable/pivot.css">
+
+<link rel="stylesheet" href="resources/app.css">
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="routerCtrl">
+	<div class="wrapper">
+		<!--=== Header ===-->
+		<div
+			cg-busy="{promise:promise,message:'Aguarde...',templateUrl:'resources/busy.html'}">
+			<div class="header">
+				<!-- Navbar -->
+				<nav
+					class="navbar navbar-toggleable-md bg-faded navbar-inverse bg-primary ">
+					<button class="navbar-toggler navbar-toggler-right" type="button"
+						data-toggle="collapse" data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<a class="navbar-brand" href="#"><img id="logo-header"
+						src="intelijus-30px.png" alt="Logo" height="30" /></a>
+					<!-- <a class="navbar-brand" href="#">INTELIJUS</a> -->
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li ng-class="{ 'nav-item': true, active: isActive('/home')}"
+								class=""><a class="nav-link" href="#/home">Indicadores
+									<span class="sr-only">(current)</span>
+							</a></li>
+							<li ng-class="{ 'nav-item': true, active: isActive('/pivot')}"
+								class=""><a class="nav-link" href="#/pivot">Relatório
+									Dinâmico <span class="sr-only">(current)</span>
+							</a></li>
+							<li
+								ng-class="{ 'nav-item': true, active: isActive('/sugestoes')}"><a
+								class="nav-link" href="#/sugestoes">Sugestões</a></li>
+							</li>
+							<li ng-class="{ 'nav-item': true, active: isActive('/sobre')}"><a
+								class="nav-link" href="#/sobre">Sobre</a></li>
+							</li>
+						</ul>
+						<form class="form-inline my-2 my-lg-0">
+							<select class="form-control mr-sm-2" ng-model="orgaoSelecionado"
+								ng-change="selecionarOrgao(orgaoSelecionado)"
+								ng-options="orgao.codigo as orgao.nome for orgao in orgaos">
+								<option disabled hidden selected value="">[Órgão]</option>
+							</select> <select class="form-control mr-sm-2"
+								ng-model="unidadeSelecionada"
+								ng-options="unidade.codigo as unidade.nome for unidade in unidades">
+								<option disabled hidden selected value="">[Unidade]</option>
+							</select>
+						</form>
+					</div>
+				</nav>
+				<!-- End Navbar -->
+			</div>
+			<!--=== End Header ===-->
+		</div>
+		<!--=== Content Part ===-->
+		<div ng-view></div>
+	</div>
+
+	<!-- Initialize Bootstrap functionality -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
+		integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
+		crossorigin="anonymous"></script>
+
+	<script src="assets/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+
+	<!-- Tether -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"
+		integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB"
+		crossorigin="anonymous"></script>
+
+	<!-- Bootstrap 4 Alpha JS -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+		crossorigin="anonymous"></script>
+	<script src="assets/angular-1.5.5/angular.min.js"></script>
+	<script src="assets/angular-1.5.5/angular-route.min.js"></script>
+
+	<script src="assets/angular-1.5.5/angular-animate.min.js"></script>
+
+	<script src="assets/angular-locale_pt-br.js"></script>
+	<script src="assets/angular-busy/angular-busy.js"></script>
+	<script src="assets/angular-modal-service/angular-modal-service.min.js"></script>
+	<script src="assets/gauge.min.js"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-chart/0.1.0/ng-google-chart.js"></script>
+
+	<script src="assets/pivottable/pivot.min.js"></script>
+	<script src="assets/pivottable/gchart_renderers.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<script src="resources/util.js"></script>
+	<script src="resources/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+//Este arquivo é um .DOT utilizado com graph viz (http://www.webgraphviz.com/)
+digraph assijus {
+  "assijus" -> "blucservice"
+  "assijus" -> "apolo-signer" 
+  "assijus" -> "sigadoc-signer"
+  "assijus" -> "textoweb-signer"
+  "assijus" -> "tnu-signer"
+  "assijus" -> "CDN"
+
+  "assijus-site" -> assijus
+
+  "assijus-site" -> "assijus.exe"
+  "assijus.exe" -> "assijus"
+
+  "apolo-signer" -> "WebDocumentos"
+  "apolo-signer" -> "apolo"
+  
+  "textoweb-signer" -> "apolo"
+  
+  "sigadoc-signer" -> "blucservice"
+  "sigadoc-signer" -> "siga"
+
+  "WebDocumentos" -> "apolo" [style=invis]
+
+  "tnu-signer" -> "tnu"
+  "blucservice" -> "LCR"
+
+  subgraph cluster_cliente{
+     label = "Cliente"
+     style = "dashed";
+     "assijus.exe"[shape=box3d, color=red]
+
+     subgraph cluster_navegador{
+        label = "Navegador"
+        "assijus-site"
+
+     }
+
+  }
+ 
+
+  subgraph cluster_servidor{
+     style = "dashed";
+     label = "Servidor de Aplicação"
+     "assijus"[shape=box3d, color=blue]
+     "blucservice"
+     "apolo-signer"
+     "sigadoc-signer"
+     "textoweb-signer"  
+     "tnu-signer"    
+     "WebDocumentos"
+  }
+
+  subgraph cluster_bd{
+     style = "dashed";
+     rank="same"
+     label = "Banco de dados"
+     "apolo"
+     "siga"
+     "tnu"
+  }
+
+  subgraph cluster_internet{
+     style = "dashed";
+     label = "Internet"
+     "LCR"
+     "CDN"
+  }
+
+  subgraph cluster_batch{
+     style = "dashed";
+     label = "Servidor Batch"
+     "AppDoctopdf"
+     
+  }
+"AppDoctopdf" -> "WebDocumentos"
+"AppDoctopdf" -> "apolo"  
+}

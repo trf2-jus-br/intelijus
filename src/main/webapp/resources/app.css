@@ -1,0 +1,35 @@
+H1 {
+	text-align: center;
+}
+
+.metas {
+	text-align: center;
+	width: 100%;
+}
+
+.transparent {
+	filter: alpha(opacity = 0);
+	opacity: 0.0;
+	-moz-opacity: 0.0;
+	-webkit-opacity: 0.0;
+}
+
+div.metas {
+	text-align: center;
+	display: inline-block;
+}
+
+div.metas table {
+	width: auto;
+	margin: 0 auto !important;
+}
+
+em.invalid {
+	display: block;
+	margin-top: 6px;
+	padding: 0 1px;
+	font-style: normal;
+	font-size: 12px;
+	line-height: 15px;
+	color: #ee9393;
+}
