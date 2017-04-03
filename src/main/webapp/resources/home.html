@@ -1,14 +1,8 @@
-
-
-
 <div class="container content pt-5">
 
 	<div class="row">
 		<div class="col-md-12">
-			<div class="alert alert-warning" role="alert"
-				ng-repeat="w in warnings">
-				<strong>{{w.title}}</strong> {{w.description}}
-			</div>
+
 			<div ng-repeat="(key, value) in errorDetails">
 				<div class="alert alert-danger fade in"
 					ng-show="!value.hasOwnProperty('hideAlert') && !(key == 'geral' && (errorDetails.geral.errormsg == errorMsgMissingCertificate || errorDetails.geral.errormsg == errorMsgMissingSigner))">
@@ -39,151 +33,25 @@
 				</div>
 			</div>
 		</div>
-	
+
 		<div class="row" ng-show="unidadeSelecionada">
+			<div class="col-md-12 mb-3 alert alert-warning" role="alert">
+				<strong>Site em construção.</strong> Os dados das metas ainda não
+				foram validados. Informações extraídas exclusivamente do sistema
+				Apolo, não incluindo os processos físicos (SIAPRO).
+			</div>
+
 			<div class="col-md-12 mb-3">
 				<h1>{{tituloUnidadeSelecionada}}</h1>
 			</div>
-			<div class="col-md-12 mb-3" ng-show="countGauges > 0">
-				<div class="card text-center">
-					<div class="card-block">
-						<table class="metas">
-							<tr>
-								<td id="meta1" ng-show="countGauges >= 1">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGauges}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="meta2" ng-show="countGauges >= 2">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGauges}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="meta3" ng-show="countGauges >= 3">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGauges}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="meta4" ng-show="countGauges >= 4">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGauges}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="meta5" ng-show="countGauges >= 5">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGauges}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="meta6" ng-show="countGauges >= 6">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGauges}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
 
-			<div class="col-md-12 mb-3" ng-show="countGaugesMetaEspecifica > 0">
-				<div class="card text-center">
-					<div class="card-block">
-						<table class="metas">
-							<tr>
-								<td id="metaespecifica1"
-									ng-show="countGaugesMetaEspecifica >= 1">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGaugesMetaEspecifica}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="metaespecifica2"
-									ng-show="countGaugesMetaEspecifica >= 2">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGaugesMetaEspecifica}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-								<td id="metaespecifica3"
-									ng-show="countGaugesMetaEspecifica >= 3">
-									<h4 class="card-title" data-toggle="tooltip"
-										data-placement="top" data-html="true" title=""></h4>
-									<div ng-class="{transparent: updatingGaugesMetaEspecifica}"
-										data-toggle="tooltip" data-placement="bottom" data-html="true"
-										title="">
-										<canvas width="160" height="100"></canvas>
-										<div>
-											<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
 
 			<div class="col-md-4 mb-3">
 				<div class="card text-center">
 					<div class="card-block">
 						<h4 class="card-title" data-toggle="tooltip" data-placement="top"
 							data-html="true"
-							title="Quantidade de pendências atuais agrupada por tipo.">Pendências
-							de Hoje</h4>
+							title="Quantidade de pendências atuais agrupada por tipo.">Pendências</h4>
 						<div google-chart chart="pendenciasChart"></div>
 					</div>
 				</div>
@@ -194,7 +62,7 @@
 						<h4 class="card-title" data-toggle="tooltip" data-placement="top"
 							data-html="true"
 							title="Quantidade de documentos produzidos ou assinados hoje agrupada por tipo.">
-							Produção de Hoje</h4>
+							Produtividade de Hoje</h4>
 						<div google-chart chart="documentosChart"></div>
 					</div>
 				</div>
@@ -208,6 +76,137 @@
 							Acervo</h4>
 						<div google-chart chart="acervoChart"></div>
 					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-12 mb-3" ng-show="countGauges > 0">
+			<div class="card text-center">
+				<div class="card-block">
+					<table class="metas">
+						<tr>
+							<td id="meta1" ng-show="countGauges >= 1">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGauges}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="meta2" ng-show="countGauges >= 2">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGauges}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="meta3" ng-show="countGauges >= 3">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGauges}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="meta4" ng-show="countGauges >= 4">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGauges}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="meta5" ng-show="countGauges >= 5">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGauges}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="meta6" ng-show="countGauges >= 6">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGauges}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 mb-3" ng-show="countGaugesMetaEspecifica > 0">
+			<div class="card text-center">
+				<div class="card-block">
+					<table class="metas">
+						<tr>
+							<td id="metaespecifica1" ng-show="countGaugesMetaEspecifica >= 1">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGaugesMetaEspecifica}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="metaespecifica2" ng-show="countGaugesMetaEspecifica >= 2">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGaugesMetaEspecifica}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+							<td id="metaespecifica3" ng-show="countGaugesMetaEspecifica >= 3">
+								<h4 class="card-title" data-toggle="tooltip"
+									data-placement="top" data-html="true" title=""></h4>
+								<div ng-class="{transparent: updatingGaugesMetaEspecifica}"
+									data-toggle="tooltip" data-placement="bottom" data-html="true"
+									title="">
+									<canvas width="160" height="100"></canvas>
+									<div>
+										<span class="meta-sinal"></span><span class="meta-valor">0</span><span>%</span>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>

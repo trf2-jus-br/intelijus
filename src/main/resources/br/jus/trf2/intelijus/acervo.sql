@@ -1,12 +1,12 @@
 select
-   acpr_tp_acervo as nome,
-   acpr_qt_total as valor,
+   acer_tp_acervo as nome,
+   acer_qt_processo as valor,
    null as descricao,
    null as memoria_de_calculo 
 from
-   vw_acervo_processo
+   vw_acervo
 where
-   acpr_cd_secao = ? 
-   and acpr_cd_vara = ?
+   acer_id_orgao = ? 
+   and acer_id_unidade = ?
 order by
-  acpr_tp_acervo
+  acer_tp_acervo

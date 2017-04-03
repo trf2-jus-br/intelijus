@@ -1,12 +1,12 @@
 select
-   pdpm_nm_pendencia as nome,
-   pdpm_qt_total as valor,
+   pend_nm_pendencia as nome,
+   pend_qt_processo as valor,
    null as descricao,
    null as memoria_de_calculo 
 from
-   vw_pendencia_doc_proc_mov 
+   vw_pendencia
 where
-   pdpm_cd_secao = ? 
-   and pdpm_cd_unidade = ?
+   pend_id_orgao = ? 
+   and pend_id_unidade = ?
 order by
-  pdpm_nm_pendencia
+  pend_nm_pendencia

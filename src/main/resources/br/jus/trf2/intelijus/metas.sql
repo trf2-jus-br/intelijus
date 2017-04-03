@@ -1,7 +1,25 @@
 -- CALCULO DE METAS DE 2017
 --
 with mvep as
-    (select * from vw_estatistica_processual where espr_id_orgao = ? and espr_id_unidade = ?
+    (
+   select QUPR_ID_ORGAO as ESPR_ID_ORGAO,
+          ORJU_SG_ORGAO as ESPR_SG_ORGAO,
+          QUPR_ID_UNIDADE as ESPR_ID_UNIDADE,
+          QUPR_NR_ANO as ESPR_NR_ANO,
+          QUPR_TP_MOVIMENTACAO as ESPR_TP_MOVIMENTACAO,
+          QUPR_QT_PROCESSO as ESPR_QT_PROCESSO,
+          QUPR_TP_COLETIVO as ESPR_TP_COLETIVO,
+          QUPR_SG_CLASSE as ESPR_SG_CLASSE,
+          QUPR_SG_NATUREZA as ESPR_SG_NATUREZA,
+          QUPR_SG_ASSUNTO_PRINCIPAL as ESPR_SG_ASSUNTO_PRINCIPAL,
+          decode(orju_tp_instancia, 1, 'PRIMEIRA', 2, 'SEGUNDA') as ESPR_tp_instancia, 
+          ORJU_TP_UNIDADE as ESPR_TP_UNIDADE,
+          ORJU_SG_UNIDADE as ESPR_SG_UNIDADE
+    from TST_INTELIJUS.MV_QUANTIDADE_PROCESSO, TST_INTELIJUS.VW_ORGAO_JULGADOR
+    where orju_id_orgao = QUPR_id_orgao
+    and orju_id_unidade = QUPR_id_unidade
+    and orju_id_orgao = ? 
+    and orju_id_unidade = ?
     )
 
 -- META 1
@@ -46,7 +64,7 @@ union all
 select 'Meta 3' as nome, 'Fomentar o alcance do percentual mínimo de 2% na proporção dos processos conciliados em relação aos distribuídos' as descricao, decode(distribuidos, 0, null, round(100 * conciliados / distribuidos / 0.02, 1)) as valor, conciliados || ' conciliados / ' || distribuidos || ' distribuidos em ' ||(extract(year from sysdate)) || ' / 2% = ' || decode(distribuidos, 0, null, round(100 * conciliados / distribuidos, 1)) || '%' as memoria_de_calculo
 from
     (select sum(
-        case when(espr_nr_ano = extract(year from sysdate) and espr_tp_movimentacao = 'DISTRIBUIDO') then espr_qt_processo else 0 end) as distribuidos, sum(
+        case when(espr_nr_ano = extract(year from sysdate) and espr_tp_movimentacao = 'DISTRIBUIDO' and espr_id_orgao <> 2) then espr_qt_processo else 0 end) as distribuidos, sum(
         case when(espr_nr_ano = extract(year from sysdate) and espr_tp_movimentacao = 'CONCILIADO')  then espr_qt_processo else 0 end) as conciliados
     from mvep
     )
@@ -70,7 +88,7 @@ union all
 select 'Meta 5' as nome, 'Impulsionar processos à execução' as descricao, decode(distribuidos, 0, null, round(100 * baixados / distribuidos, 1)) as valor, baixados || ' baixados / ' || distribuidos || ' processos não fiscais distribuidos em ' ||(extract(year from sysdate)) || ' = ' || decode(distribuidos, 0, null, round(100 * baixados / distribuidos, 1)) || '%' as memoria_de_calculo
 from
     (select sum(
-        case when(espr_nr_ano = extract(year from sysdate) and espr_sg_classe <> 'ExFis' and espr_tp_movimentacao = 'DISTRIBUIDO') then espr_qt_processo else 0 end) as distribuidos, sum(
+        case when(espr_nr_ano = extract(year from sysdate) and espr_sg_classe <> 'ExFis' and espr_tp_movimentacao = 'DISTRIBUIDO' and espr_id_orgao <> 2) then espr_qt_processo else 0 end) as distribuidos, sum(
         case when(espr_nr_ano = extract(year from sysdate) and espr_sg_classe <> 'ExFis' and espr_tp_movimentacao = 'BAIXADO')     then espr_qt_processo else 0 end) as baixados
     from mvep
     )
