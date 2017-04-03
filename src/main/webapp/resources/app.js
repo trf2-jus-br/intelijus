@@ -266,9 +266,9 @@ app
 				function($scope, $http, $interval, $window, $location, $filter,
 						$timeout, $routeParams, ModalService) {
 					$scope.gauges = {};
-					$scope.countGauges = 1;
+					$scope.countGauges = 0;
 					$scope.updatingGauges = true;
-					$scope.countGaugesMetaEspecifica = 1;
+					$scope.countGaugesMetaEspecifica = 0;
 					$scope.updatingGaugesMetaEspecifica = true;
 
 					$scope.$watch(function() {
@@ -282,7 +282,7 @@ app
 					$scope.update = function() {
 						var unidade = $scope.$parent.unidadeSelecionada;
 
-						$scope.countGauges = 1;
+						$scope.countGauges = 0;
 						$scope.updatingGauges = true;
 						// $scope.countGaugesMetaEspecifica = 1;
 						$scope.updatingGaugesMetaEspecifica = true;
