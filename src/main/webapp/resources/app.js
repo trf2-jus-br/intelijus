@@ -294,7 +294,7 @@ app
 									-1, null, null);
 
 						$scope.updatePieChart($scope.acervoChart.data);
-						$scope.updatePieChart($scope.documentosChart.data);
+						$scope.updateColumnChart($scope.documentosChart);
 						$scope.updatePieChart($scope.pendenciasChart.data);
 						// $scope.updatePieChart($scope.metasChart.data);
 
@@ -324,8 +324,12 @@ app
 							method : "GET"
 						}).then(
 								function successCallback(response) {
-									$scope.updatePieChart(
-											$scope.documentosChart.data,
+									// $scope.updatePieChart(
+									// $scope.documentosChart.data,
+									// response.data.list);
+
+									$scope.updateColumnChart(
+											$scope.documentosChart,
 											response.data.list);
 								}, function errorCallback(response) {
 								}));
@@ -469,6 +473,49 @@ app
 						}
 					}
 
+					$scope.updateColumnChart = function(chart, l) {
+						var TITULO_LINHA = "Dia"
+						var LINHA = "grupo";
+						var COLUNA = "nome";
+						var VALOR = "valor";
+
+						chart.data = [ [ '', '' ], [ '', 0 ] ];
+						if (l === undefined || l.length == 0) {
+							return;
+						}
+
+						var lines = [];
+						var columns = [];
+						var cache = {};
+
+						for (var i = 0; i < l.length; i++) {
+							if (lines.indexOf(l[i][LINHA]) == -1) {
+								lines.push(l[i][LINHA]);
+								cache[l[i][LINHA]] = {};
+							}
+							if (columns.indexOf(l[i][COLUNA]) == -1) {
+								columns.push(l[i][COLUNA]);
+							}
+							cache[l[i][LINHA]][l[i][COLUNA]] = l[i][VALOR];
+						}
+
+						var data = [];
+						var firstline = [ TITULO_LINHA ];
+						for (var c = 0; c < columns.length; c++) {
+							firstline.push(columns[c]);
+						}
+						data.push(firstline);
+						for (var l = 0; l < lines.length; l++) {
+							var line = [ lines[l] ];
+							for (var c = 0; c < columns.length; c++) {
+								line.push(cache[lines[l]][columns[c]] || 0);
+							}
+							data.push(line);
+						}
+						// d = data;
+						chart.data = data;
+					}
+
 					$scope.metasChart = {
 						type : "Gauges",
 						options : {
@@ -499,16 +546,18 @@ app
 					};
 
 					$scope.documentosChart = {
-						type : "PieChart",
+						type : "ColumnChart",
 						options : {
 							legend : {
 								position : 'top',
 								maxLines : 3
 							},
-							// is3D: false,
-							pieHole : 0.4
+							bar : {
+								groupWidth : '75%'
+							},
+							isStacked : true,
 						},
-						data : [ [ 'Tipo', 'Quantidade' ] ]
+						data : [ [ '', '' ], [ '', 0 ] ]
 					};
 
 					$scope.acervoChart = {

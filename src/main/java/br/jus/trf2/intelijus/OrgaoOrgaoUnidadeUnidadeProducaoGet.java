@@ -1,6 +1,7 @@
 package br.jus.trf2.intelijus;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,14 +14,12 @@ import br.jus.trf2.intelijus.IIntelijus.Indicador;
 import br.jus.trf2.intelijus.IIntelijus.OrgaoOrgaoUnidadeUnidadeProducaoGetRequest;
 import br.jus.trf2.intelijus.IIntelijus.OrgaoOrgaoUnidadeUnidadeProducaoGetResponse;
 
-public class OrgaoOrgaoUnidadeUnidadeProducaoGet implements
-		IOrgaoOrgaoUnidadeUnidadeProducaoGet {
-	private static final Logger log = LoggerFactory
-			.getLogger(OrgaoOrgaoUnidadeUnidadeProducaoGet.class);
+public class OrgaoOrgaoUnidadeUnidadeProducaoGet implements IOrgaoOrgaoUnidadeUnidadeProducaoGet {
+	private static final Logger log = LoggerFactory.getLogger(OrgaoOrgaoUnidadeUnidadeProducaoGet.class);
 
 	@Override
-	public void run(OrgaoOrgaoUnidadeUnidadeProducaoGetRequest req,
-			OrgaoOrgaoUnidadeUnidadeProducaoGetResponse resp) throws Exception {
+	public void run(OrgaoOrgaoUnidadeUnidadeProducaoGetRequest req, OrgaoOrgaoUnidadeUnidadeProducaoGetResponse resp)
+			throws Exception {
 		resp.list = new ArrayList<>();
 
 		Connection conn = null;
@@ -35,6 +34,8 @@ public class OrgaoOrgaoUnidadeUnidadeProducaoGet implements
 
 			while (rset.next()) {
 				Indicador o = new Indicador();
+				Date dt = rset.getDate("DT");
+				o.grupo = dt.getDate() + "/" + dt.getMonth() + 1;
 				o.nome = rset.getString("NOME");
 				o.descricao = rset.getString("DESCRICAO");
 				o.valor = rset.getDouble("VALOR");

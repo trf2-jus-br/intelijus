@@ -15,7 +15,7 @@ with mvep as
           decode(orju_tp_instancia, 1, 'PRIMEIRA', 2, 'SEGUNDA') as ESPR_tp_instancia, 
           ORJU_TP_UNIDADE as ESPR_TP_UNIDADE,
           ORJU_SG_UNIDADE as ESPR_SG_UNIDADE
-    from TST_INTELIJUS.MV_QUANTIDADE_PROCESSO, TST_INTELIJUS.VW_ORGAO_JULGADOR
+    from MV_QUANTIDADE_PROCESSO, VW_ORGAO_JULGADOR
     where orju_id_orgao = QUPR_id_orgao
     and orju_id_unidade = QUPR_id_unidade
     and orju_id_orgao = ? 
@@ -48,7 +48,7 @@ where distribuidos > 0
 -- META ESPECÍFICA 3
 -- AÇÕES PENAIS: Identificar e julgar até 31/12 do ano corrente, 70% das ações penais vinculadas aos crimes relacionados à improbidade administrativa, ao tráfico de pessoas, à exploração sexual e ao trabalho escravo, distribuídas até 31/12/2014.
 union all
-select 'Meta 8' as nome, 'Identificar e julgar até 31/12 do ano corrente, 70% das ações penais vinculadas aos crimes relacionados à improbidade administrativa, ao tráfico de pessoas, à exploração sexual e ao trabalho escravo, distribuídas até 31/12/2014.' as descricao, decode(distribuidos, 0, null, round(100 * julgados / distribuidos / 0.7, 1)) as valor, julgados || ' julgados / ' || distribuidos || ' processos criminais distribuidos até ' ||(extract(year from sysdate) - 3) || ' / 70% = ' || decode(distribuidos, 0, null, round(100 * julgados / distribuidos, 1)) || '%' as memoria_de_calculo
+select 'Meta 8' as nome, 'Identificar e julgar até 31/12 do ano corrente, 70% das ações penais vinculadas aos crimes relacionados à improbidade administrativa, ao tráfico de pessoas, à exploração sexual e ao trabalho escravo, distribuídas até 31/12/2014.' as descricao, decode(distribuidos, 0, null, round(100 * julgados / distribuidos / 0.7, 1)) as valor, julgados || ' julgados / ' || distribuidos || ' processos criminais distribuidos até ' ||(extract(year from sysdate) - 3) || ' / 70% = ' || decode(distribuidos, 0, null, round(100 * julgados / distribuidos / 0.7, 1)) || '%' as memoria_de_calculo
 from
     (select sum(
         case when(espr_nr_ano <= extract(year from sysdate) - 3 and espr_sg_assunto_principal = '1-IMPROB' and espr_tp_movimentacao = 'DISTRIBUIDO') then espr_qt_processo else 0 end) as distribuidos, sum(

@@ -22,6 +22,7 @@ public interface IIntelijus {
 	}
 
 	public class Indicador implements ISwaggerModel {
+		public String grupo;
 		public String nome;
 		public String descricao;
 		public Double valor;

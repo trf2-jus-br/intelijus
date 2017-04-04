@@ -15,7 +15,7 @@ with mvep as
           decode(orju_tp_instancia, 1, 'PRIMEIRA', 2, 'SEGUNDA') as ESPR_tp_instancia, 
           ORJU_TP_UNIDADE as ESPR_TP_UNIDADE,
           ORJU_SG_UNIDADE as ESPR_SG_UNIDADE
-    from TST_INTELIJUS.MV_QUANTIDADE_PROCESSO, TST_INTELIJUS.VW_ORGAO_JULGADOR
+    from MV_QUANTIDADE_PROCESSO, VW_ORGAO_JULGADOR
     where orju_id_orgao = QUPR_id_orgao
     and orju_id_unidade = QUPR_id_unidade
     and orju_id_orgao = ? 
@@ -61,7 +61,7 @@ where((espr_tp_unidade = 'JUIZADO ESPECIAL'
 -- META 3
 -- Fomentar o alcance do percentual mínimo de 2% na proporção dos processos conciliados em relação aos distribuídos
 union all
-select 'Meta 3' as nome, 'Fomentar o alcance do percentual mínimo de 2% na proporção dos processos conciliados em relação aos distribuídos' as descricao, decode(distribuidos, 0, null, round(100 * conciliados / distribuidos / 0.02, 1)) as valor, conciliados || ' conciliados / ' || distribuidos || ' distribuidos em ' ||(extract(year from sysdate)) || ' / 2% = ' || decode(distribuidos, 0, null, round(100 * conciliados / distribuidos, 1)) || '%' as memoria_de_calculo
+select 'Meta 3' as nome, 'Fomentar o alcance do percentual mínimo de 2% na proporção dos processos conciliados em relação aos distribuídos' as descricao, decode(distribuidos, 0, null, round(100 * conciliados / distribuidos / 0.02, 1)) as valor, conciliados || ' conciliados / ' || distribuidos || ' distribuidos em ' ||(extract(year from sysdate)) || ' / 2% = ' || decode(distribuidos, 0, null, round(100 * conciliados / distribuidos / 0.02, 1)) || '%' as memoria_de_calculo
 from
     (select sum(
         case when(espr_nr_ano = extract(year from sysdate) and espr_tp_movimentacao = 'DISTRIBUIDO' and espr_id_orgao <> 2) then espr_qt_processo else 0 end) as distribuidos, sum(

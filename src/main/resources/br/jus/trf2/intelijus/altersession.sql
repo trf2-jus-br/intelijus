@@ -1,1 +1,1 @@
-alter session set current_schema=tst_intelijus
+alter session set current_schema=intelijus
