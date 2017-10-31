@@ -35,7 +35,7 @@ public class OrgaoOrgaoUnidadeUnidadeProducaoGet implements IOrgaoOrgaoUnidadeUn
 			while (rset.next()) {
 				Indicador o = new Indicador();
 				Date dt = rset.getDate("DT");
-				o.grupo = dt.getDate() + "/" + dt.getMonth() + 1;
+				o.grupo = dt.getDate() + "/" + (dt.getMonth() + 1);
 				o.nome = rset.getString("NOME");
 				o.descricao = rset.getString("DESCRICAO");
 				o.valor = rset.getDouble("VALOR");

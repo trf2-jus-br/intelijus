@@ -293,9 +293,9 @@ app
 							$scope.drawGauge('metaespecifica' + i, "&nbsp;",
 									-1, null, null);
 
-						$scope.updatePieChart($scope.acervoChart.data);
+						$scope.updatePieChart($scope.acervoChart);
 						$scope.updateColumnChart($scope.documentosChart);
-						$scope.updatePieChart($scope.pendenciasChart.data);
+						$scope.updatePieChart($scope.pendenciasChart);
 						// $scope.updatePieChart($scope.metasChart.data);
 
 						if (!unidade) {
@@ -314,8 +314,8 @@ app
 						}).then(
 								function successCallback(response) {
 									$scope.updatePieChart(
-											$scope.acervoChart.data,
-											response.data.list);
+											$scope.acervoChart,
+											response.data.list, "Total: # Processos");
 								}, function errorCallback(response) {
 								}));
 
@@ -340,10 +340,12 @@ app
 						}).then(
 								function successCallback(response) {
 									$scope.updatePieChart(
-											$scope.pendenciasChart.data,
-											response.data.list);
+											$scope.pendenciasChart,
+											response.data.list, "Total: # Petições/Expedientes");
 								}, function errorCallback(response) {
 								}));
+						
+						return;
 
 						$scope.$parent.promise.push($http({
 							url : urlBase + "/metas/nacionais",
@@ -462,15 +464,19 @@ app
 						gauge.set(value); // set actual value
 					}
 
-					$scope.updatePieChart = function(d, l) {
-						d.splice(1, d.length - 1);
+					$scope.updatePieChart = function(d, l, title) {
+						d.options.title = ''; 
+						d.data.splice(1, d.data.length - 1);
 						if (l === undefined) {
-							d.push([ '', '' ]);
+							d.data.push([ '', '' ]);
 							return;
 						}
+						var t = 0;
 						for (var i = 0; i < l.length; i++) {
-							d.push([ l[i].nome, l[i].valor ]);
+							d.data.push([ l[i].nome, l[i].valor ]);
+							t += l[i].valor;
 						}
+						d.options.title = title.replace('#', t);
 					}
 
 					$scope.updateColumnChart = function(chart, l) {
@@ -535,7 +541,10 @@ app
 					$scope.pendenciasChart = {
 						type : "PieChart",
 						options : {
+							title : "",
+							is3D : true,
 							legend : {
+								alignment : 'left',
 								position : 'top',
 								maxLines : 3
 							},
@@ -563,7 +572,10 @@ app
 					$scope.acervoChart = {
 						type : "PieChart",
 						options : {
+							title : "",
+							is3D : true,
 							legend : {
+								alignment : 'left',
 								position : 'top',
 								maxLines : 2
 							}

@@ -35,46 +35,35 @@
 		</div>
 
 		<div class="row" ng-show="unidadeSelecionada">
-			<div class="col-md-12 mb-3 alert alert-warning" role="alert">
-				<div align="center">
-					<strong>Site em Construção</strong>
-				</div>
-				<div align="center">
-					Os dados das metas ainda não foram validados.<br />Informações
-					extraídas exclusivamente do sistema Apolo, não incluindo os
-					processos físicos (SIAPRO).
-				</div>
-			</div>
-
 			<div class="col-md-12 mb-3">
 				<h1>{{tituloUnidadeSelecionada}}</h1>
 			</div>
 
 
-			<div class="col-md-4 mb-3">
+			<div class="col-md-12 mb-3">
 				<div class="card text-center">
 					<div class="card-block">
 						<h4 class="card-title" data-toggle="tooltip" data-placement="top"
 							data-html="true"
-							title="Quantidade de pendências atuais agrupada por tipo.">Pendências</h4>
-						<div google-chart chart="pendenciasChart"></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 mb-3">
-				<div class="card text-center">
-					<div class="card-block">
-						<h4 class="card-title" data-toggle="tooltip" data-placement="top"
-							data-html="true"
-							title="Quantidade de documentos produzidos ou assinados hoje agrupada por tipo.">
-							Produtividade</h4>
+							title="Quantidade de documentos/atos judiciais produzidos no período.">
+							Produtividade Semanal</h4>
 						<div ng-class="{transparent: documentosChart.data[0][0] == ''}">
 							<div google-chart chart="documentosChart"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 mb-3">
+			<div class="col-md-6 mb-3">
+				<div class="card text-center">
+					<div class="card-block">
+						<h4 class="card-title" data-toggle="tooltip" data-placement="top"
+							data-html="true"
+							title="Quantidade de pendências atuais agrupada por tipo.">Petições/Expedientes Pendentes</h4>
+						<div google-chart chart="pendenciasChart"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 mb-3">
 				<div class="card text-center">
 					<div class="card-block">
 						<h4 class="card-title" data-toggle="tooltip" data-placement="top"
@@ -219,6 +208,16 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="col-md-12 mb-3 alert alert-warning" role="alert">
+				<div align="center">
+					<strong>Orientação</strong>
+				</div>
+				<div align="center">Para ver o detalhamento dos dados
+					mostrados nos gráficos, posicione o mouse sobre o item desejado.</div>
+			</div>
+
+
 		</div>
 
 
